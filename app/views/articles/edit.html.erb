@@ -1,0 +1,55 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">RailsBlog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><%=link_to 'Home', articles_path %></a></li>
+
+    </ul>
+  </div>
+</nav>
+<h1 style=" text-align: center;text-transform: uppercase; color: #4CAF50;">Edit article</h1>
+
+<%= form_with(model: @article, local: true) do |form| %>
+
+  <%# if @article.errors.any? %>
+<!--    <div id="error_explanation">-->
+<!--      <h2>-->
+<!--        <%#= pluralize(@article.errors.count, "error") %> prohibited-->
+<!--        this article from being saved:-->
+<!--      </h2>-->
+<!--      <ul>-->
+        <%# @article.errors.full_messages.each do |msg| %>
+<!--          <li><%#= msg %></li>-->
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+  <%# end %>
+
+  <div style="position: absolute;
+      left: 0;
+      top: 20%;
+      width: 100%;
+      margin-left: 120px;
+      font-size: 18px;">
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, style:'width: 1000px; border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;
+      padding: 12px 20px' %>
+  </p>
+
+  <p>
+    <%= form.label :text %><br>
+    <%= form.text_area :body , style:'padding: 12px 20px;width: 1000px;height:150px;margin-right:40px;box-sizing: border-box;
+      border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;  ' %>
+  </p>
+
+  <p>
+    <%= form.submit 'Update', class:'btn btn-success' %>
+    <%= link_to 'Back', articles_path, class:'btn btn-info'%>
+  </p>
+
+<% end %>
+
+</div>

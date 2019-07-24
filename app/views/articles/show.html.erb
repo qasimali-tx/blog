@@ -1,0 +1,67 @@
+<body style="background-color:linen ; height:100%;">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">RailsBlog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><%= link_to 'Home', articles_path%></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span><%= current_user.present? ?  current_user.email : ''%> </a></li>
+      <li><%= link_to "Logout",  destroy_user_session_path,method: :delete %></li>
+    </ul>
+  </div>
+</nav>
+<div >
+
+<div class="header">
+
+  <h1  style="text-align: center; text-transform: uppercase; color: #4CAF50;" >Show</h1>
+
+</div>
+
+  <div class="row" style="margin-left: 85px;margin-right: 25px;margin-bottom: 20px;">
+    <div class="col-sm-6 "  ><%= link_to 'Back', articles_path, class:'btn btn-info'%></div>
+    <div class="col-sm-6"><p class="pull-right" style="color: green"><%= @article.user.email %></p></div>
+  </div>
+
+  <div class="panel panel-primary" style="margin-left:100px;width:90%;">
+    <div class="panel-heading "> <strong><%= @article.title%></strong></div>
+    <div class="panel-body"> <%= @article.body %></div>
+  </div>
+  <div class="row" >
+    <%if current_user.present? %>
+      <% if current_user.id == @article.user.id %>
+          <div class="col-sm-6 " style="margin-left: 95px;margin-right: 25px;margin-top: -10px;" >
+
+          <%= link_to 'Edit', edit_article_path(@article),class:'btn btn-warning' %></div>
+        <%end %>
+      <%end %>
+    <div class="col-sm-6 pull-right" style="margin-right: 50px;margin-top: -35px;">
+      <%if current_user.present? %>
+        <% if current_user.id == @article.user.id %>
+        <%= link_to 'Destroy', article_path(@article),
+                                      method: :delete, class:'btn btn-danger pull-right',
+                                      data: { confirm: 'Are you sure?' } %>
+        <%end %>
+      <%end %>
+        </div>
+  </div>
+
+</div>
+<section class="section comments">
+  <div class="container">
+    <div class="comment-form">
+      <hr />
+      <% if current_user.present? %>
+      <h3 class="subtitle is-3", style="color:#2E2F30; font-family: Times New Roman; ">Leave a reply</h3>
+      <%= render 'comments/form' %>
+        <%end %>
+    </div>
+    <h2 class="subtitle is-5"><strong><%= @article.comments.count %></strong> Comments</h2>
+    <%= render @article.comments %>
+
+  </div>
+</section>
+</body>

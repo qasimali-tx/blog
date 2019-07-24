@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>  </head>
+<body bgcolor="linen">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">RailsBlog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"></li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a><span class="glyphicon glyphicon-user" > <%= current_user.present? ?  current_user.email : ''%></span></a></li>
+      <%if current_user.present? %>
+        <li><%= link_to "Logout",  destroy_user_session_path,method: :delete %></li>
+      <%else   %>
+        <li><%= link_to 'Login', user_session_path%></li>
+      <%end %>
+    </ul>
+
+  </div>
+</nav>
+
+<div style="margin-top: -20px ">
+
+  <div class="header">
+
+    <h1  style="text-align: center; text-transform: uppercase; color: #4CAF50;" >Index</h1>
+  <% if current_user.present? %>
+      <div style="text-align-last: end;margin-right: 118px; margin-top: -5px;margin-bottom: 5px "><%= link_to 'Add', new_article_path, class:'btn btn-success'%></div>
+    <%else %>
+    <br>
+    <%end %>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <table  class="table table-striped table-bordered table-hover">
+          <tr  style=" background-color:navy; color:blanchedalmond">
+            <th  >Title</th>
+            <th>Text</th>
+            <th >Show</th>
+            <% if current_user.present? %>
+              <% if current_user.admin? %>
+              <th >Delete</th>
+                <%end %>
+            <%end %>
+            <% if current_user.present? %>
+              <% if current_user.admin? %>
+            <th>Edit</th>
+                <%end %>
+              <%end %>
+          </tr>
+          <% @articles.each do |article| %>
+            <tr>
+              <td><%= article.title %></td>
+              <td><%= h truncate(article.body, :length=> 80) %></td>
+              <td><%= link_to 'Show', article_path(article) ,class:'btn btn-info' %></td>
+              <% if current_user.present? %>
+                <% if current_user.admin? %>
+                  <td><%= link_to 'Destroy', article_path(article),
+                              method: :delete, class:'btn btn-danger',
+                              data: { confirm: 'Are you sure?' } %></td>
+                <%end %>
+              <%end %>
+
+              <td><% if current_user.present? %>
+                    <% if current_user.admin? %>
+                      <%= link_to 'Edit', edit_article_path(article),class:'btn btn-warning' %>
+                        <%end %>
+                    <%end %>
+                    </td>
+            </tr>
+          <% end %>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
