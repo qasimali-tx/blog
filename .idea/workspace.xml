@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e4f527f-4810-408d-b6d9-6e2aaae60ecd" name="Default Changelist" comment="" />
+    <list default="true" id="7e4f527f-4810-408d-b6d9-6e2aaae60ecd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/log/" />
@@ -65,8 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="75">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -360,12 +362,12 @@
       <workItem from="1563886691280" duration="19874000" />
       <workItem from="1563916821055" duration="1047000" />
       <workItem from="1563971131286" duration="3762000" />
-      <workItem from="1564000295370" duration="2892000" />
+      <workItem from="1564000295370" duration="2900000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147605000" />
+    <option name="totallyTimeSpent" value="147613000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="706" y="25" width="660" height="743" extended-state="4" />
@@ -700,8 +702,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="75">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
