@@ -10,7 +10,15 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+
+    # @articles= Article.search(params[:search])
+    if params[:search].present?
+
+      @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%")
+    else
+      @articles = Article.all
+    end
+
   end
 
   def update
