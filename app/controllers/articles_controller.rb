@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
 
   def index
 
-    # @articles= Article.search(params[:search])
+     # @articles= Article.search(params[:search])
     if params[:search].present?
 
       @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%")

@@ -6,9 +6,9 @@ class Article < ApplicationRecord
 
   # def self.search(search)
   #   if search
-  #     find( :all, :conditions => ['title LIKE ?', "%#{search}%"])
+  #     where("title ILIKE ? ", "%#{:search}%")
   #   else
-  #     find(:all)
+  #     all
   #   end
   # end
 end
