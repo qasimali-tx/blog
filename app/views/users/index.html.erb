@@ -61,7 +61,9 @@
               <td><%= user.role %></td>
               <% if current_user.present? %>
                 <% if current_user.admin? %>
-                  <td><%= link_to 'Delete', user_path(user) ,class:'btn btn-info' %></td>
+                  <td><%= link_to 'Delete', user_path(user),
+                                  method: :delete, class:'btn btn-danger',
+                                  data: { confirm: 'Are you sure?' } %></td>
                   <%end %>
                 <%end %>
             </tr>

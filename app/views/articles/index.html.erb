@@ -76,7 +76,7 @@
               <% if current_user.present? %>
                 <% if current_user.admin? %>
                   <td><%= link_to 'Destroy', article_path(article),
-                              method: :delete, class:'btn btn-danger',
+                              :method => 'delete', class:'btn btn-danger',
                               data: { confirm: 'Are you sure?' } %></td>
                 <%end %>
               <%end %>
