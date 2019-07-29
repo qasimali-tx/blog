@@ -3,6 +3,7 @@ class Article < ApplicationRecord
   belongs_to :user
   validates :title, presence: true,
             length: { minimum: 5 }
+  paginates_per 5
 
   # def self.search(search)
   #   if search

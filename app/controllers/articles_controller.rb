@@ -14,9 +14,9 @@ class ArticlesController < ApplicationController
      # @articles= Article.search(params[:search])
     if params[:search].present?
 
-      @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%")
+      @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%").order(:title).page(params[:page])
     else
-      @articles = Article.all
+      @articles = Article.order(:title).page(params[:page])
     end
 
   end
