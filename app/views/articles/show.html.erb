@@ -9,7 +9,12 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span><%= current_user.present? ?  current_user.email : ''%> </a></li>
-      <li><%= link_to "Logout",  destroy_user_session_path,method: :delete %></li>
+      <li><% if current_user.present? %>
+          <%= link_to "Logout",  destroy_user_session_path,method: :delete , class: 'btn'%>
+          <%else %>
+          <%= link_to "Login", user_session_path %>
+          <%end %></li>
+
     </ul>
   </div>
 </nav>

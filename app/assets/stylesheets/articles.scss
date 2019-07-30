@@ -3,3 +3,15 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap-sprockets";
 @import "bootstrap";
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  //padding: 10px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.42857;
+}
+.search-field{
+  margin-right: 2%;
+}
