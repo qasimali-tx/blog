@@ -1,8 +1,13 @@
+
+// Place all the styles related to the Articles controller here.
 // Place all the styles related to the Articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+
 .btn-circle {
   width: 40px;
   height: 40px;
@@ -12,6 +17,30 @@
   font-size: 20px;
   line-height: 1.42857;
 }
-.search-field{
-  margin-right: 2%;
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+.center1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+}
+.centerDel {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+}
+.user_image{
+  width: 180%;
+  border-radius: 50%;
+}
+.comment_image{
+  width: 85%;
+  border-radius: 50%;
 }

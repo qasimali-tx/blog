@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   def index
-    @users =User.all
+
+    @q = User.ransack(params[:q])
+
+    if @q.present?
+      @users = @q.result.page(params[:page])
+    else
+      @users = User.all.page(params[:page])
+    end
   end
 
   def destroy

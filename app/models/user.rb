@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  paginates_per 10
   enum role: [:standard, :admin]
   after_initialize :set_default_role, :if => :new_record?
 

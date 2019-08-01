@@ -1,5 +1,9 @@
 class ArticlesController < ApplicationController
 
+  before_action :wrap_in_transaction, only: [:show ,:update ,:edit]
+
+
+
   def create
     @article = current_user.articles.new(article_params)
     if @article.save
@@ -11,28 +15,27 @@ class ArticlesController < ApplicationController
 
   def index
 
-     # @articles= Article.search(params[:search])
-    if params[:search].present?
+    @q = Article.ransack(params[:q])
 
-      @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%").order(:title).page(params[:page])
+    if @q.present?
+      @articles = @q.result.page(params[:page])
     else
-      @articles = Article.order(:title).page(params[:page])
+      @articles = Article.all.page(params[:page])
     end
-
   end
 
   def update
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
     if @article.update(article_params)
       redirect_to @article
     else
       render 'edit'
     end
   end
-
-  def edit
-    @article = Article.find(params[:id])
-  end
+  #
+  # def edit
+  #   # @article = Article.find(params[:id])
+  # end
 
   def destroy
     @article = Article.find(params[:id])
@@ -42,10 +45,10 @@ class ArticlesController < ApplicationController
 
   end
 
-  def show
-    @article = Article.find(params[:id])
-
-  end
+  # def show
+  #   # @article = Article.find(params[:id])
+  #
+  # end
 
   def new
     @article = Article.new
@@ -53,8 +56,14 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body,:image)
   end
+
+  def wrap_in_transaction
+    @article = Article.find_by_id(params[:id])
+  end
+
+
 
 end
 

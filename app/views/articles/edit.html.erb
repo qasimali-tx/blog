@@ -1,12 +1,21 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar  navbar-inverse ">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">RailsBlog</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><%=link_to 'Home', articles_path %></a></li>
-
     </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span><%= current_user.present? ?  current_user.email : ''%> </a></li>
+      <li><% if current_user.present? %>
+          <%= link_to "Logout",  destroy_user_session_path,method: :delete , class: 'btn'%>
+        <%else %>
+          <%= link_to "Login", user_session_path %>
+        <%end %></li>
+    </ul>
+
   </div>
 </nav>
 <h1 style=" text-align: center;text-transform: uppercase; color: #4CAF50;">Edit article</h1>
@@ -27,22 +36,15 @@
 <!--    </div>-->
   <%# end %>
 
-  <div style="position: absolute;
-      left: 0;
-      top: 20%;
-      width: 100%;
-      margin-left: 120px;
-      font-size: 18px;">
+  <div class="center1 form">
   <p>
     <%= form.label :title %><br>
-    <%= form.text_field :title, style:'width: 1000px; border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;
-      padding: 12px 20px' %>
+    <%= form.text_field :title,class:'form-control' %>
   </p>
 
   <p>
     <%= form.label :text %><br>
-    <%= form.text_area :body , style:'padding: 12px 20px;width: 1000px;height:150px;margin-right:40px;box-sizing: border-box;
-      border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;  ' %>
+    <%= form.text_area :body ,class:'form-control' %>
   </p>
 
   <p>

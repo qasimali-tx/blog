@@ -1,7 +1,7 @@
 
-<div style="bgcolor:linen;height: 100%">
+<div style="bgcolor:linen;" >
 <!--      NAvBAR-->
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse " >
     <div class="container-fluid">
       <div class="navbar-header">
         <ul class="nav navbar-nav">
@@ -33,7 +33,8 @@
   </nav>
   <h1  style="text-align: center; text-transform: uppercase; color: #4CAF50;" >Index</h1>
   <br>
-  <div class="row">
+  <div class="center1">
+    <div class="row">
     <div class="col-md-6">
       <% if current_user.present? %>
         <div style="text-align-last: start;margin-bottom: 5px ;margin-left: 2%;"><%= link_to '+', new_article_path, class:'btn btn-success btn-circle '%></div>
@@ -42,18 +43,26 @@
       <%end %>
     </div>
     <div class="col-md-6">
-      <div class="pull-right search-field">
-        <%= form_tag articles_path, :method => 'get' do %>
-          <p>
-            <%= text_field_tag :search, params[:search], style:'height:30px;  border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8;' %>
-            <%= submit_tag "Search", class:'btn btn-info',:name => nil %>
-          </p>
+      <div class="pull-right search-field ">
+        <%= search_form_for @q do |f| %>
+          <%= f.label :name_cont ,"Article Contain"%>
+          <%= f.search_field :title_cont ,class:'search-field-shape' %>
+
+<!--          # Search if an associated articles.title starts with...-->
+          <%#= f.label :articles_title_start %>
+          <%#= f.search_field :articles_title_start %>
+
+<!--          # Attributes may be chained. Search multiple attributes for one value...-->
+          <%#= f.label :name_or_description_or_email_or_articles_title_cont %>
+          <%#= f.search_field :name_or_description_or_email_or_articles_title_cont %>
+
+          <%= f.submit "Search", class:'btn btn-info' %>
         <% end %>
       </div>
     </div>
   </div>
-<br>
-  <div class="col-md-12">
+    <br>
+    <div class="col-md-12">
     <table  class="table table-striped table-bordered table-hover">
       <tr  style=" background-color:navy; color:blanchedalmond">
         <th  >Title</th>
@@ -73,7 +82,7 @@
       <% @articles.each do |article| %>
         <tr>
           <td><%= article.title %></td>
-          <td><%= h truncate(article.body, :length=> 80) %></td>
+          <td><%= strip_tags(article.body).truncate(100) %></td>
           <td><%= link_to 'Show', article_path(article) ,class:'btn btn-info' %></td>
           <% if current_user.present? %>
             <% if current_user.admin? %>
@@ -93,6 +102,6 @@
     </table>
 
   </div>
-
-<%= paginate @articles %>
+    <%= paginate @articles %>
+  </div>
 </div>

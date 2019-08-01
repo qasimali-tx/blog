@@ -1,20 +1,24 @@
 <div class="box">
   <article class="media">
     <div class="media-content">
-      <div class="content well well-sm">
-        <p>
 
-          <strong><%= comment.name %>:</strong>
-          <%= comment.comment %>
-        </p>
+        <p>
+      <div class="col-md-1">
+        <img src="/img/user.jpg" alt="User image" class="comment_image">
+
       </div>
-    </div>
+          <strong><%= comment.user.name %>:</strong>
+          <%= comment.comment %>
+      </p>
+
   <% if current_user.present?  %>
       <% if current_user.admin? || comment.user.id == current_user.id %>
-
+  <div class="centerDel">
       <%= link_to 'Delete',article_comment_path(@article,comment),
-                method: :delete, class: "btn is-danger",style:'margin-top:-20px;', data: { confirm: 'Are you sure?' } %>
+                  method: :delete, class: "btn is-danger", data: { confirm: 'Are you sure?' } %></div>
       <%end %>
     <%end %>
+
+    </div>
   </article>
 </div>
