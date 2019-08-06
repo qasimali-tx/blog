@@ -27,36 +27,31 @@
     </div>
   </nav>
   <h1 style=" text-align: center;text-transform: uppercase; color: #4CAF50;"> Add Article </h1>
-  <style>
-    .center {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 100%;
-      text-align: center;
-      font-size: 18px; }
 
-  </style>
-
-<div style="position: absolute;
-    left: 0;
-    top: 20%;
-    width: 100%;
-    margin-left: 120px;
-    font-size: 18px;">
+<div class="center">
 
   <p>
     <%= form.label :title , style:'text-align:left' %><br>
     <%= form.text_field :title, placeholder:'Title', style:'width: 1000px; border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;
       padding: 12px 20px'  %>
   </p>
+  <p>
+    <%= form.label :tag , style:'text-align:left' %><br>
+    <input type="text" class="form-control" name="line"  placeholder="Enter email">
+    <%#= form.text_field :line, placeholder:'#Tags',
+                        style:'width: 1000px; border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;
+      padding: 12px 20px'  %>
+  </p>
 
   <p>
     <%= form.label :text %><br>
-   <%= form.text_area :body ,placeholder:'Write something',  style:'padding: 12px 20px;width: 1000px;height:150px;margin-right:40px;box-sizing: border-box;
-      border: 2px solid #ccc; border-radius: 4px;  background-color: #f8f8f8;  ' %>
-  </p>
+    <%= form.text_area :body, 'data-provider': :summernote, class:'center' %>
 
+  </p>
+  <p>
+    <%= form.label :photo %>
+    <%= form.file_field :image , required:true %>
+  </p>
   <p>
     <%= form.submit 'Save', class:'btn btn-success' %>
   <%= link_to 'Back', articles_path, class:'btn btn-info'%>

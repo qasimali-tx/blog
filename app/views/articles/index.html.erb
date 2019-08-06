@@ -1,7 +1,7 @@
 
-<div style="bgcolor:linen;height: 100%">
-<!--      NAvBAR-->
-  <nav class="navbar navbar-inverse">
+<div style="bgcolor:linen;" >
+  <!--      NAvBAR-->
+  <nav class="navbar navbar-inverse " >
     <div class="container-fluid">
       <div class="navbar-header">
         <ul class="nav navbar-nav">
@@ -9,92 +9,99 @@
           <li class="active"><%= link_to 'Home', articles_path%></li>
         </ul>
         <ul class="nav navbar-nav">
-          <li class="active", style="margin-left: 2px;"><%= link_to 'Users', users_path%></li>
+          <% if current_user.present? %>
+            <% if current_user.role == "admin"%>
+              <li class="active", style="margin-left: 2px;"><%= link_to 'Users', users_path%></li>
+            <%end %>
+          <%end %>
         </ul>
       </div>
-        <ul class="nav navbar-nav">
-          <li class="active"></li>
-        </ul>
+      <ul class="nav navbar-nav">
+        <li class="active"></li>
+      </ul>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li><a><span class="glyphicon glyphicon-user" > <%= current_user.present? ?  current_user.email : ''%></span></a></li>
-            <%if current_user.present? %>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a><span class="glyphicon glyphicon-user" > <%= current_user.present? ?  current_user.email : ''%></span></a></li>
+        <%if current_user.present? %>
           <li><%= link_to "Logout",  destroy_user_session_path,method: :delete %></li>
-            <%else   %>
-            <li><%= link_to 'Login', user_session_path%></li>
-            <%end %>
-          </ul>
+        <%else   %>
+          <li><%= link_to 'Login', user_session_path%></li>
+        <%end %>
+      </ul>
 
     </div>
   </nav>
-
   <h1  style="text-align: center; text-transform: uppercase; color: #4CAF50;" >Index</h1>
-  <div style="padding-left: 75%;">
-    <%= form_tag articles_path, :method => 'get' do %>
-      <p>
-        <%= text_field_tag :search, params[:search], style:'height:30px;  border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8;' %>
-        <%= submit_tag "Search", class:'btn btn-info',:name => nil %>
-      </p>
-    <% end %>
-  </div>
-
-<div style=" margin-top: -20px ">
-
-<!--  -->
-  <% if current_user.present? %>
-      <div style="text-align-last: start;margin-bottom: 5px ;margin-left: 90px;"><%= link_to 'Add', new_article_path, class:'btn btn-success'%></div>
-    <%else %>
-    <br>
-    <%end %>
-
-
-  </div>
-  <div class="container">
+  <br>
+  <div class="center1">
     <div class="row">
-      <div class="col-md-12">
-        <table  class="table table-striped table-bordered table-hover">
-          <tr  style=" background-color:navy; color:blanchedalmond">
-            <th  >Title</th>
-            <th>Text</th>
-            <th >Show</th>
-            <% if current_user.present? %>
-              <% if current_user.admin? %>
-              <th >Delete</th>
-                <%end %>
-            <%end %>
-            <% if current_user.present? %>
-              <% if current_user.admin? %>
-            <th>Edit</th>
-                <%end %>
-              <%end %>
-          </tr>
-          <% @articles.each do |article| %>
-            <tr>
-              <td><%= article.title %></td>
-              <td><%= h truncate(article.body, :length=> 80) %></td>
-              <td><%= link_to 'Show', article_path(article) ,class:'btn btn-info' %></td>
-              <% if current_user.present? %>
-                <% if current_user.admin? %>
-                  <td><%= link_to 'Destroy', article_path(article),
-                              :method => 'delete', class:'btn btn-danger',
-                              data: { confirm: 'Are you sure?' } %></td>
-                <%end %>
-              <%end %>
+      <div class="col-md-6">
+        <% if current_user.present? %>
+          <div><%= link_to 'Add', new_article_path, class:'btn btn-success'%></div>
+        <%else %>
+          <br>
+        <%end %>
+      </div>
+      <div class="col-md-6">
+        <div class="pull-right search-field ">
+          <%= search_form_for @q do |f| %>
+            <%= f.label :name_cont ,"Article Contain"%>
+            <%= f.search_field :title_cont ,class:'search-field-shape' %>
 
-              <td><% if current_user.present? %>
-                    <% if current_user.admin? %>
-                      <%= link_to 'Edit', edit_article_path(article),class:'btn btn-warning' %>
-                        <%end %>
-                    <%end %>
-                    </td>
-            </tr>
+            <!--          # Search if an associated articles.title starts with...-->
+            <%#= f.label :articles_title_start %>
+            <%#= f.search_field :articles_title_start %>
+
+            <!--          # Attributes may be chained. Search multiple attributes for one value...-->
+            <%#= f.label :name_or_description_or_email_or_articles_title_cont %>
+            <%#= f.search_field :name_or_description_or_email_or_articles_title_cont %>
+
+            <%= f.submit "Search", class:'btn btn-info' %>
           <% end %>
-        </table>
-
+        </div>
       </div>
     </div>
+    <br>
+
+
+    <section id="section-works" class="section appear clearfix">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="portfolio-items isotopeWrapper clearfix" id="3">
+                <% @articles.each do |article| %>
+                  <article class="col-md-4" >
+                    <div class="imgBlock">
+                      <div class="img-container">
+                   <%= image_tag(article.image) %>
+                        </div>
+                      <div class="img-overlay">
+                        <p class="img-btn">
+                          <span class="date"><%= article.created_at.strftime("%m/%d/%Y ")  %></span>
+                          <span>|</span>
+                          <a class="url-text" href="#"><%=article.user.name %></a>
+                        <h2 class="h2-text">
+                          <a href="#"><%= link_to strip_tags(article.title).truncate(50), article_path(article) %></a>
+                        </h2>
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                <% end %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="pull-right"><%= paginate @articles%></div>
   </div>
+
 </div>
 
-<%= paginate @articles %>
+
+
+
 </div>

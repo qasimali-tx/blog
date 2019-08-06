@@ -1,0 +1,46 @@
+<body style="background-color:white ; height:100%;">
+<nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">RailsBlog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><%= link_to 'Home', articles_path%></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span><%= current_user.present? ?  current_user.email : ''%> </a></li>
+      <li><% if current_user.present? %>
+          <%= link_to "Logout",  destroy_user_session_path,method: :delete , class: 'btn'%>
+        <%else %>
+          <%= link_to "Login", user_session_path %>
+        <%end %></li>
+
+    </ul>
+  </div>
+</nav>
+<div class="row center">
+  <div class="col-md-5">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%=@user.id %></td>
+        <td><%=@user.name %></td>
+        <td><%=@user.email %></td>
+        <td><%=@user.role %></td>
+      </tr>
+
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

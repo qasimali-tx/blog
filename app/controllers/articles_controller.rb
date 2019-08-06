@@ -3,6 +3,8 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     if @article.save
+
+      @article.tags.create(line: params[:line])
       redirect_to @article
     else
       render 'new'
@@ -11,12 +13,22 @@ class ArticlesController < ApplicationController
 
   def index
 
-     # @articles= Article.search(params[:search])
-    if params[:search].present?
+    # @articles= Article.search(params[:search])
+    # ====== Simple search ======
+    # if params[:search].present?
+    #
+    #   @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%").order(:title).page(params[:page])
+    # else
+    #   @articles = Article.order(:title).page(params[:page])
+    # end
+    # ======== END=============
+    # =======Ransack=========
+    @q = Article.ransack(params[:q])
 
-      @articles = Article.where("title ILIKE ? ", "%#{params[:search]}%").order(:title).page(params[:page])
+    if @q.present?
+      @articles = @q.result.page(params[:page])
     else
-      @articles = Article.order(:title).page(params[:page])
+      @articles = Article.all.page(params[:page])
     end
 
   end
@@ -53,7 +65,7 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body,:image)
   end
 
 end
