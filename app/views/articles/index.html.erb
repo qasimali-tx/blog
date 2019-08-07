@@ -11,7 +11,7 @@
         <ul class="nav navbar-nav">
           <% if current_user.present? %>
             <% if current_user.role == "admin"%>
-              <li class="active", style="margin-left: 2px;"><%= link_to 'Users', users_path%></li>
+              <li class="active"><%= link_to 'Users', users_path%></li>
             <%end %>
           <%end %>
         </ul>
@@ -31,7 +31,7 @@
 
     </div>
   </nav>
-  <h1  style="text-align: center; text-transform: uppercase; color: #4CAF50;" >Index</h1>
+  <h1 class="heading1">Index</h1>
   <br>
   <div class="center1">
     <div class="row">
